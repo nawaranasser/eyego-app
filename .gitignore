@@ -1,0 +1,42 @@
+# Node modules
+node_modules/
+
+# البيئة الافتراضية
+.env
+.env.local
+.env.*.local
+
+# ملفات Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# التكوينات السرية
+*.pem
+*.key
+*.crt
+*.env.*
+secrets.txt
+credentials.json
+
+# ملفات النظام
+.DS_Store
+Thumbs.db
+
+# مجلدات التوزيع
+dist/
+build/
+
+# Docker
+docker-compose.override.yml
+
+# IDEs
+.vscode/
+.idea/
+
+# Coverage reports
+coverage/
+
+id_rsa
