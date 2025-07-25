@@ -84,7 +84,57 @@ We built a simple Node.js API, containerized it using Docker, deployed it to Ama
 
 ---
 
-### 3. Deploy the App on AWS EKS with at Least 2
+### 3. Deploy the App on AWS EKS with at Least two and 4. Expose via LoadBalancer
+       to install eksctl  https://docs.aws.amazon.com/eks/latest/userguide/eksctl.html
+
+1️⃣ Create EKS cluster using eksctl  --> eksctl create cluster --name eyego-cluster \
+  --region us-east-1 \
+  --nodegroup-name eyego-nodes \
+  --nodes 2 \
+  --node-type t3.micro \
+  --with-oidc \
+  --ssh-access \
+  --ssh-public-key <your-ssh-key>
+
+        to create ssh key  --> ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+
+       if it done correctly , you can see it in cloudformation 
+<img width="942" height="326" alt="image" src="https://github.com/user-attachments/assets/c8ceb1d1-5a98-49a0-bfd1-06fea708006c" />
+
+       
+2️⃣ Create Kubernetes files --> deployment.yaml and service.yaml  in project repo
+
+3️⃣  Deployment operation -->
+                               kubectl apply -f deployment.yaml
+                               kubectl apply -f service.yaml
+4️⃣ Note the servise.yaml file run 2 replica using loud balancer
+
+5️⃣ Exract the loud balancer external IP  -->  kubectl get service eyego-service
+
+**browse this external ip to see your app run via interner**
+
+<img width="815" height="236" alt="image" src="https://github.com/user-attachments/assets/11816dac-af55-4571-abf1-7f2cd01ebea6" />
+
+6️⃣ Test number of replicas (pods) and its status --> kubectl get pods
+
+7️⃣ Verify the Deployment and Service --> kubectl get deployments
+                                         kubectl get pods
+                                         kubectl get svc
+
+----
+
+### 5.  Automate build, push, and deploy using CI/CD (GitHub Actions)
+
+1️⃣ Push the full project to GitHub repo
+
+2️⃣ Create auto deploy file -->  deploy.yml in project repo
+
+<img width="248" height="132" alt="image" src="https://github.com/user-attachments/assets/dc526812-7cd9-49b6-8341-0805982b6f3f" />
+
+
+
+
+
 
 
 
