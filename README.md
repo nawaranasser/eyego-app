@@ -131,10 +131,64 @@ We built a simple Node.js API, containerized it using Docker, deployed it to Ama
 
 <img width="248" height="132" alt="image" src="https://github.com/user-attachments/assets/dc526812-7cd9-49b6-8341-0805982b6f3f" />
 
+--------
+
+### 6. Steps to migrate the setup to GCB EKS or Alibaba Cloud
 
 
+#### 1. Migrating to Google Cloud Build (GCB):
+Step 1: Set up Google Cloud Project
+Go to Google Cloud Console
+
+Create a new project or use an existing one
+
+Enable Cloud Build and GKE (Google Kubernetes Engine)
+
+Step 2: Set up Artifact Registry
+Create a Docker repository in Google Artifact Registry
+
+Step 3: Create cloudbuild.yaml
+This file tells GCB how to build, push, and deploy
+
+Example:
+
+steps:
+
+                   - name: 'gcr.io/cloud-builders/docker'
+                     args: ['build', '-t', 'LOCATION-docker.pkg.dev/PROJECT-ID/REPO/IMAGE', '.']
+                     
+                   - name: 'gcr.io/cloud-builders/docker'
+                     args: ['push', 'LOCATION-docker.pkg.dev/PROJECT-ID/REPO/IMAGE']
+                   
+                   - name: 'gcr.io/cloud-builders/kubectl'
+                     args: ['apply', '-f', 'deployment.yaml']
 
 
+Step 4: Connect GitHub to Cloud Build
+In the GCP console, connect your GitHub repository
+
+Every push triggers a GCB pipeline
+
+#### 2. Migrating to Alibaba Cloud:
+
+Step 1: Create Alibaba Cloud Account
+Enable Alibaba Container Registry
+
+Enable ACK (Alibaba Cloud Kubernetes)
+
+Step 2: Set up Registry
+Create a Container Registry to store Docker images
+
+Step 3: Use CodePipeline or GitHub Actions
+You can either:
+
+Use Alibaba CodePipeline
+
+Or continue with GitHub Actions and:
+
+Push to Alibaba Container Registry
+
+Deploy to ACK using kubectl
 
 
 
